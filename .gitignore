@@ -1,0 +1,21 @@
+# Python environment and bytecode caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+env/
+venv/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Dataset storage (prevents uploading the 150MB+ CIFAR-10 data)
+src/data/
+data/
+
+# OS specific files
+.DS_Store
+Thumbs.db
