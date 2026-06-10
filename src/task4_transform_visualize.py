@@ -49,3 +49,48 @@ plt.tight_layout()
 plt.savefig('../plots/task4_transform_proof.png', dpi=300)
 print("Transformation proof plot successfully saved to: ../plots/task4_transform_proof.png")
 plt.show()
+
+
+# 1. Load your existing full results files (handling device mapping safely)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# Adjust these filenames if they are named slightly differently in your directory
+baseline_results = torch.load('improved_baseline_cnn.pth', map_location=device)
+augmented_results = torch.load('src/improved_augmented_cnn.pth', map_location=device)
+
+# 2. Extract the 15-epoch accuracy history arrays directly from your files
+# Note: If your saving script used keys like 'train_acc'/'test_acc' instead, change these string keys
+train_unaug = baseline_results['train_acc']
+test_unaug  = baseline_results['test_acc']
+
+train_aug   = augmented_results['train_acc']
+test_aug    = augmented_results['test_acc']
+
+epochs = range(1, len(train_unaug) + 1)
+
+# 3. Construct the 15-Epoch Comparison Chart
+plt.figure(figsize=(11, 7))
+
+# Plot WITHOUT Augmentation (Orange/Red to show the overfitting gap)
+plt.plot(epochs, train_unaug, color='tab:orange', linestyle='-', linewidth=2.5, marker='o', label='Train Accuracy (Un-augmented)')
+plt.plot(epochs, test_unaug, color='tab:red', linestyle='--', linewidth=1.5, marker='x', label='Test Accuracy (Un-augmented)')
+
+# Plot WITH Augmentation (Blue/Cyan to show the stabilized generalization)
+plt.plot(epochs, train_aug, color='tab:blue', linestyle='-', linewidth=2.5, marker='s', label='Train Accuracy (Augmented)')
+plt.plot(epochs, test_aug, color='tab:cyan', linestyle='-', linewidth=2, marker='D', label='Test Accuracy (Augmented)')
+
+# 4. Formatting and Metadata
+plt.title('Improved CNN (ReLU+BN): 15-Epoch Augmentation Impact on Generalization', fontsize=14, fontweight='bold', pad=15)
+plt.xlabel('Training Horizon (Epochs)', fontsize=12)
+plt.ylabel('Accuracy (%)', fontsize=12)
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.xticks(epochs)
+plt.ylim(30, 100)
+
+plt.legend(loc='lower right', fontsize=11, frameon=True, shadow=True, title='Configuration Profiles')
+plt.tight_layout()
+
+# 5. Save the output
+plt.savefig('../plots/task4_epoch_accuracy_comparison.png', dpi=300)
+print("Success! 15-epoch accuracy comparison plot saved to: ../plots/task4_epoch_accuracy_comparison.png")
+plt.show()
