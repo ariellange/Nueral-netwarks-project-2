@@ -1,4 +1,3 @@
-# src/task4_visualize.py
 import torch
 import torchvision
 import torchvision.datasets as datasets
@@ -18,7 +17,7 @@ original_tensor, label = raw_dataset[4]
 to_pil = transforms.ToPILImage()
 original_img = to_pil(original_tensor)
 
-# 2. Define your Task 4 transformations individually
+# 2. Define Task 4 transformations individually
 transform_rotation = transforms.RandomRotation(degrees=(15, 15)) # Force exactly 15 deg for clear demo
 transform_crop     = transforms.RandomCrop(32, padding=4)
 transform_flip     = transforms.RandomHorizontalFlip(p=1.0)       # Force flip for demo
