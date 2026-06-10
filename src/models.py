@@ -68,3 +68,16 @@ class DropoutMLP(nn.Module):
         x = torch.relu(self.dropout1(self.fc1(x)))
         x = torch.relu(self.dropout2(self.fc2(x)))
         return self.fc3(x)
+    
+    
+class SmallMLP(nn.Module):
+    def __init__(self):
+        super().__init__()
+        # Tiny capacity: only 128 hidden neurons, no deep stacking
+        self.fc1 = nn.Linear(32 * 32 * 3, 128)
+        self.fc2 = nn.Linear(128, 10)
+
+    def forward(self, x):
+        x = x.view(x.size(0), -1)
+        x = torch.relu(self.fc1(x))
+        return self.fc2(x)
