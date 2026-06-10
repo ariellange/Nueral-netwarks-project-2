@@ -8,7 +8,7 @@ import torch.optim as optim
 from models import InitialCNN
 from utils import train, test, train_loader, val_loader, device
 
-# Initialize your standard starter network
+# Initialize standard starter network
 baseline_cnn = InitialCNN().to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(baseline_cnn.parameters(), lr=0.001)
@@ -31,6 +31,6 @@ for epoch in range(num_epochs):
     print(f"Val Loss: {val_loss:.4f} | Val Accuracy: {val_acc:.2f}%")
     print("-" * 40)
 
-# Save the trained baseline weights to your local workspace folder
+# Save the trained baseline weights to local workspace folder
 torch.save(baseline_cnn.state_dict(), 'baseline_cnn_weights.pth')
 print("Baseline model training complete. Weights secured as 'baseline_cnn_weights.pth'.")

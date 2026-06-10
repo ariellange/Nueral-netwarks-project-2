@@ -24,7 +24,7 @@ experiments = {
 
 histories = {}
 
-# Execution Block running your modules sequentially
+# Execution Block running modules sequentially
 for name, config in experiments.items():
     print(f"\n--- Training Model: {name} ---")
     model = config['model']
@@ -78,7 +78,7 @@ plt.tight_layout()
 plt.savefig('../plots/task3_baseline_curves.png', dpi=300)
 plt.close()
 
-# Graph 2: Your Custom Velocity/Gap Chart (Used to pinpoint Epoch 6)
+# Graph 2: Custom Velocity/Gap Chart (Used to pinpoint Epoch 6)
 baseline_train_acc = np.array(baseline_history['train_acc'])
 baseline_val_acc = np.array(baseline_history['val_acc'])
 gen_gap = baseline_train_acc - baseline_val_acc
